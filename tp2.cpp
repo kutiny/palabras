@@ -9,6 +9,7 @@ using namespace std;
 class Nodo{
     private: 
         string dato;
+        int datosIzquierda;
         Nodo *next;
     public:
         Nodo() {next=NULL;};
@@ -18,6 +19,7 @@ class Nodo{
         string get_dato() {return dato; };
         Nodo *get_next() {return next; };
         bool es_vacio() {return next==NULL;}
+        int getDatosIzquierda(){return datosIzquierda};
 };
 
 class Lista{
