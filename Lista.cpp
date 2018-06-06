@@ -16,15 +16,11 @@ class Lista{
             bool esvacia(void);
             Nodo cabeza(void);
             Lista *resto(void);
-          //  void toPrint(string p);  //editado y comentado
-//            int suma(int i);
+            string toPrint(string p);  //editado y comentado
             void impre(void);
-//            int suma2(void);
             int size();
             void borrar(void); //borra la cabeza
             void borrar_last();//borra el ultimo
-           // void concat(Lista *l1); //comentado
-           // Lista *copy(void);   //comentado
             void tomar(int n);
             
 };
@@ -36,15 +32,15 @@ int Lista::size()
 void Lista::impre(void)
 { Nodo *aux;
   aux=czo;
-    while(aux->get_next()!=NULL){
+    while(aux->getHijoDerecho()!=NULL){
          cout<<aux->getCadena()<<endl;
-         aux=aux->get_next();
+         aux=aux->getHijoDerecho();
     }
 }
 void Lista::add(string d)
 {  
      Nodo *nuevo=new Nodo(d);
-     nuevo->set_next(czo);
+     nuevo->setHijoDerecho(czo);
      czo=nuevo;
 }
 bool Lista::esvacia(void)
@@ -61,56 +57,46 @@ Nodo Lista::cabeza(void)
 
 Lista *Lista::resto(void)
 { 
-      Lista *l=new Lista(czo->get_next());
+      Lista *l=new Lista(czo->getHijoDerecho());
       return (l);
 }
 
-//void Lista::toPrint(string p)
-//{ 
-//     if (this->esvacia()) {
-//     	cout<< "Vacia";
-//     } else {
-//       cout<< this->cabeza()<<" - "<< this->resto()->toPrint(p) << endl;
-//     }
-//}
+string Lista::toPrint(string p)
+{ 
+     if (this->esvacia()) {
+     	cout<< "Vacia";
+     } else {
+	   std::ostringstream stm;
+       stm<< this->cabeza().getCadena() << " - " << this->resto()->toPrint(p) << endl;
+       //cout<<endl<<" stm.str()= "<<stm.str()<<endl;
+       return stm.str();
+     }
+}
 
 void Lista::borrar(void)
 { //borra el nodo cabeza
   if(esvacia()){
   } else {
          Nodo *tmp=czo;
-         czo=czo->get_next();
+         czo=czo->getHijoDerecho();
          delete tmp;
   }
 }
 void Lista::borrar_last()
 { // borra el ultimo nodo
    if(!this->esvacia()){
-      if((czo->get_next())->get_next()==NULL){
-         delete czo->get_next();
-         czo->set_next(NULL);
+      if((czo->getHijoDerecho())->getHijoDerecho()==NULL){
+         delete czo->getHijoDerecho();
+         czo->setHijoDerecho(NULL);
       }
       else this->resto()->borrar_last(); 
    }  
 }
-//void Lista::concat(Lista *l1)
-//{// le transfiere los datos de l1 a this
-//   if (!(l1->esvacia())){
-//      this->concat(l1->resto());
-//      this->add(l1->cabeza()->getCadena());
-//   }
-//}
-//Lista *Lista::copy(void)
-//{ 
-//      Lista *aux=new Lista();
-//      aux->concat(this);
-//      return aux;
-//}
 void Lista::tomar(int n)
 { //deja "vivos" los n primeros nodos y borra el resto
 /*   if(!(this->esvacia())) {
       if (n>0) this->resto()->tomar(n-1);
-      else     czo->set_next(NULL);
+      else     czo->setHijoDerecho(NULL);
    }
 */
    if(this->size()>n){

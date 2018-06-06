@@ -9,16 +9,13 @@ class Nodo{
 		string cadena;
 		Nodo *hi;
 		Nodo *hd;
-		Nodo *next;	//necesario??
 		
 	public:
 		Nodo();
 		Nodo(int x);
 		Nodo(int value, Nodo *hi, Nodo *hd);
 		Nodo(string palabra);
-		void set_next(Nodo *n) {next=n; }; //podria usar hi o hd??
-		Nodo *get_next() {return next; }; //Tengo que agregarlo???
-		bool es_vacio() {return next==NULL;} //mmmm
+		bool es_vacio() {return hd==NULL;} //mmmm
 		int getValue();
 		void setValue(int value);
 		string getCadena();

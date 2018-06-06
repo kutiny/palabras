@@ -7,7 +7,7 @@ class AVL{
 		Nodo *raiz;
 		
 	public:
-	AVL(Lista a){procesar(a);}
+	AVL(Lista a);
 	void procesar(Lista a);
 	void agregar(Lista a);
 }

@@ -22,7 +22,7 @@ class arbol{
     void show(pnodo aux, int n);
     void shellSort(int n);
     void quickSort(int left, int right);
-    Nodo get(int ind);
+    Nodo getNodo(int ind, bool returnUno);
     void swap(int a, int b);
     void join(Lista list);
 
@@ -80,14 +80,14 @@ void arbol::show(pnodo aux, int n)
    }
 }
 
-pnodo arbol::get(int ind, bool returnUno=false){
-	int aux = ind;
+pnodo arbol::getNodo(int ind, bool returnUno=false){
 	Nodo s = raiz;
+	int aux = s->getValue();
 	int par = returnUno?1:0;
-	while(s->getValor() > par || s->getValor() != NULL){
-		if(s->getValor() < ind){
-			aux/=2;
+	while(s->getValue() > par || s->getValue() != NULL){
+		if(s->getValue() < ind){
 			ind-=aux;
+			aux/=2;
 			s = s->der;	
 		}
 		else{
@@ -99,13 +99,13 @@ pnodo arbol::get(int ind, bool returnUno=false){
 }
 
 
-void::swap(int a, int b){
-	string temp =	this->get(a)->getCadena();
-	this->get(a)->setCadena( this->get(b)->getCadena() );
-	this->get(b)->setCadena( temp );	
+void arbol::swap(int a, int b){
+	string temp =	this->getNodo(a)->getCadena();
+	this->getNodo(a)->setCadena( this->getNodo(b)->getCadena() );
+	this->getNodo(b)->setCadena( temp );	
 }
 
-void Arbol::shellSort(int n){
+void arbol::shellSort(int n){
 	int m=0,c=0;
 
   for (int gap = n/2; gap > 0; gap /= 2){
@@ -113,14 +113,14 @@ void Arbol::shellSort(int n){
 
     for (int i = gap; i < n; i += 1){
 
-      int temp = this->get(i);
+      int temp = this->getNodo(i);
  			c++;
  			m++;
       int j;            
-      for (j = i; j >= gap && this->get(j - gap) > temp; j -= gap)
+      for (j = i; j >= gap && this->getNodo(j - gap) > temp; j -= gap)
         this->swap(j,j - gap); m++; c++;
              
-        this->get(j) = temp; m++;
+        this->getNodo(j) = temp; m++;
     }
   }
   printf("\n ShellSort --> cantidad de comparaciones= %d  movimientos= %d",c,m);
@@ -133,14 +133,14 @@ void arbol::quicksort(int left = 0, int right = this->lista->size()){
 	
     int i = left;
     int j = right;
-    int pivot = this->get(min);
+    int pivot = this->getNodo(min)->getValue();
 
     while(left<j || i<right)
     {
     		c++;
-        while(this->get(i)<pivot)
+        while(this->getNodo(i)<pivot)
         i++;c++;
-        while(this->get(j)>pivot)
+        while(this->getNodo(j)>pivot)
         j--;c++;
 
         if(i<=j){
@@ -169,7 +169,7 @@ void arbol::join(Lista list){
 	int cont = 0;
 	Lista lista = list;
 	while(cont<size){
-		Nodo aLink = this->get(cont,true);
+		Nodo aLink = this->getNodo(cont,true);
 		Nodo lLink = Lista->cabeza();
  		if(cont%2 == 0){
 			aLink->setHijoIzquierda(lLink);
