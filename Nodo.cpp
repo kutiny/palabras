@@ -9,7 +9,7 @@ class Nodo{
 		string cadena;
 		Nodo *hi;
 		Nodo *hd;
-		Nodo *next;
+		Nodo *next;	//necesario??
 		
 	public:
 		Nodo();
