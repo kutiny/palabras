@@ -105,6 +105,7 @@ Nodo * Arbol::search(int v, Nodo * raiz){
 }
 
 int main(){
+	
 	cout << "Testing...\n\n";
 	int datos = 10;
 	cout << "Datos: " << datos << endl;
