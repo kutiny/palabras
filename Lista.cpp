@@ -21,7 +21,6 @@ class Lista{
             int size();
             void borrar(void); //borra la cabeza
             void borrar_last();//borra el ultimo
-            void tomar(int n);
             
 };
 int Lista::size()
@@ -91,17 +90,5 @@ void Lista::borrar_last()
       }
       else this->resto()->borrar_last(); 
    }  
-}
-void Lista::tomar(int n)
-{ //deja "vivos" los n primeros nodos y borra el resto
-/*   if(!(this->esvacia())) {
-      if (n>0) this->resto()->tomar(n-1);
-      else     czo->setHijoDerecho(NULL);
-   }
-*/
-   if(this->size()>n){
-      this->borrar_last();
-      this->tomar(n);
-   }
 }
 
