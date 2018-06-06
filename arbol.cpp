@@ -20,6 +20,10 @@ class arbol{
     void ird(pnodo aux);
     void idr(pnodo aux);
     void show(pnodo aux, int n);
+    void shellSort(int n);
+    void quickSort(int left, int right);
+    pnodo get(int ind);
+    void swap(int a, int b);
 
 public:
     arbol(){raiz=NULL;};
@@ -73,5 +77,87 @@ void arbol::show(pnodo aux, int n)
        cout<<aux->info<<"\n";
        show(aux->izq, n+1);
    }
+}
+
+string arbol::get(int ind){
+	int aux = ind;
+	pnodo s = raiz;
+	while(s->getValor() != NULL){
+		if(s->getValor() < ind){
+			aux/=2;
+			ind-=aux;
+			s = s->der;	
+		}
+		else{
+			aux/=2;
+			s = s->izq;
+		}
+	}
+	return s;
+}
+
+void::swap(int a, int b){
+	string temp =	this->get(a)->getCadena();
+	this->get(a)->setCadena( this->get(b)->getCadena() );
+	this->get(b)->setCadena( temp );	
+}
+
+void Arbol::shellSort(int n){
+	int m=0,c=0;
+
+  for (int gap = n/2; gap > 0; gap /= 2){
+  	c++;
+
+    for (int i = gap; i < n; i += 1){
+
+      int temp = this->get(i);
+ 			c++;
+ 			m++;
+      int j;            
+      for (j = i; j >= gap && this->get(j - gap) > temp; j -= gap)
+        this->swap(j,j - gap); m++; c++;
+             
+        this->get(j) = temp; m++;
+    }
+  }
+  printf("\n ShellSort --> cantidad de comparaciones= %d  movimientos= %d",c,m);
+    
+}
+
+void arbol::quicksort(int left = 0, int right = this->lista->size()){
+		int m=0,c=0;
+		int min = (left+right)/2;
+	
+    int i = left;
+    int j = right;
+    int pivot = this->get(min);
+
+    while(left<j || i<right)
+    {
+    		c++;
+        while(this->get(i)<pivot)
+        i++;c++;
+        while(this->get(j)>pivot)
+        j--;c++;
+
+        if(i<=j){
+        		c++;
+        		m++;
+            this->swap(i,j);
+            i++;
+            j--;
+        }
+        else{
+            if(left<j)
+            		c++;
+                this->quicksort(left, j);
+            if(i<right)
+            		c++;
+                this->quicksort(i,right);
+            return;
+        }
+    }
+    
+    printf("\n QuickSort --> cantidad de comparaciones= %d  movimientos= %d",c,m);
 }
 //-------------------------------------------------------

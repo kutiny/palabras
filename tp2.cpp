@@ -42,6 +42,7 @@ class Lista{
             void concat(Lista *l1);
             Lista *copy(void);
             void tomar(int n);
+            
 };
 int Lista::size()
 { 
@@ -137,6 +138,7 @@ void Lista::tomar(int n)
       this->tomar(n);
    }
 }
+
 string leerArchivo(){
 	string file = "file.txt";
 	string content;
