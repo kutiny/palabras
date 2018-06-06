@@ -243,6 +243,7 @@ Lista split(string palabras){
 
 							//MAIN
 int main(){
+	cout<< "se modifico";
 	
 //	cout << "Testing...\n\n";
 //	int datos = 10;
