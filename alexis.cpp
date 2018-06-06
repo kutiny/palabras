@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <typeinfo>
 using namespace std;
 
 class Nodo{
@@ -49,7 +50,7 @@ class Nodo{
 		string getCadena(){
 			return this->cadena;
 		}
-		int getValor(){
+		int getValue(){
 			return this->valor;
 		}
 };
@@ -63,7 +64,7 @@ class Lista{
             //~Lista(void);
             void add(string d);
             bool esvacia(void);
-            Nodo cabeza(void);
+            Nodo *cabeza(void);
             Lista *resto(void);
             string toPrint(string p);  //editado y comentado
             void impre(void);
@@ -95,12 +96,12 @@ bool Lista::esvacia(void)
 {   
     return czo->es_vacio();
 }
-Nodo Lista::cabeza(void)
+Nodo *Lista::cabeza(void)
 { 
   if(this->esvacia()){
                 cout<<" Error, Cabeza de lista vacia"; //mmmm 
   }
-  return *czo;
+  return czo;
 }
 
 Lista *Lista::resto(void)
@@ -115,7 +116,7 @@ string Lista::toPrint(string p)
      	cout<< "Vacia";
      } else {
 	   std::ostringstream stm;
-       stm<< this->cabeza().getCadena() << " - " << this->resto()->toPrint(p) << endl;
+       stm<< this->cabeza()->getCadena() << " - " << this->resto()->toPrint(p) << endl;
        //cout<<endl<<" stm.str()= "<<stm.str()<<endl;
        return stm.str();
      }
@@ -146,7 +147,8 @@ class Arbol{
 	private:
 	Nodo *rama;
 	Lista *lista;
-//	void crear(int a);
+	Nodo *getNodo(int ind, bool returnUno);
+	void join(Lista *list);
 	
 	public:
 	Arbol(Lista *list);
@@ -156,8 +158,13 @@ class Arbol{
 	//void buscar();
 	Nodo * getRama(){return this->rama;};
 	string search(int v, Nodo * raiz);
+	string funciona();
 };
 
+string Arbol::funciona()
+{
+	return rama->getHijoIzquierdo()->getHijoIzquierdo()->getHijoDerecho()->getCadena();
+}
 Arbol::Arbol(Lista *list){
 	lista=list;
 	int a= list->size();
@@ -169,6 +176,7 @@ Arbol::Arbol(Lista *list){
 	else
 		x=pow(2,b);
 	this->rama = new Nodo(x);
+	join(list);
 }
 
 void Arbol::setHijoDerecho(Nodo * n){
@@ -180,31 +188,49 @@ void Arbol::setHijoIzquierdo(Nodo * n){
 }
 
 string Arbol::search(int v, Nodo * raiz){
-	cout << "Valor de Raiz actual: " << raiz->getValor() << endl;
-	if(v < raiz->getValor()){ //si es menor trabaja por la izquierda
-		if (raiz->getValor() == 1 && v == 1){ // si el nodo tiene el valor 1
+	cout << "Valor de Raiz actual: " << raiz->getValue() << endl;
+	if(v < raiz->getValue()){ //si es menor trabaja por la izquierda
+		if (raiz->getValue() == 1 && v == 1){ // si el nodo tiene el valor 1
 			// significa que el siguiente nivel son los nodos de la lista.
 			cout << "llegando a la lista.\n\n";
 			return raiz->getHijoDerecho()->getCadena(); 
-		}else if(raiz->getValor() == 1 && v == 0){
+		}else if(raiz->getValue() == 1 && v == 0){
 			cout << "llegando a la lista.\n\n";
 			return raiz->getHijoIzquierdo()->getCadena();
 		}
-		cout << v << " es menor que " << raiz->getValor() << endl;
+		cout << v << " es menor que " << raiz->getValue() << endl;
 		this->search(v,raiz->getHijoIzquierdo());
 	}else{ // si es mayor o igual
-		if (raiz->getValor() == 1 && v == 1){
+		if (raiz->getValue() == 1 && v == 1){
 			cout << "llegando a la lista.\n\n";
 			return raiz->getHijoDerecho()->getCadena();
-		}else if(raiz->getValor() == 1 && v == 0){
+		}else if(raiz->getValue() == 1 && v == 0){
 			cout << "llegando a la lista.\n\n";
 			return raiz->getHijoIzquierdo()->getCadena();
 		}else{
-			cout << v << " es mayor o igual que " << raiz->getValor() << endl; 
-			this->search(v-raiz->getValor(),raiz->getHijoDerecho());
+			cout << v << " es mayor o igual que " << raiz->getValue() << endl; 
+			this->search(v-raiz->getValue(),raiz->getHijoDerecho());
 		}
 	}
-	return NULL;
+	return "Cadena Vacia";
+}
+
+Nodo *Arbol::getNodo(int ind, bool returnUno=false){
+	Nodo *s = rama;
+	int aux = s->getValue();
+	int par = returnUno?1:0;
+	while(s->getValue() > par && s != NULL){
+		if(s->getValue() < ind){
+			ind-=aux;
+			aux/=2;
+			s = s->getHijoDerecho();	
+		}
+		else{
+			aux/=2;
+			s = s->getHijoIzquierdo();
+		}
+	}
+	return s;
 }
 
 								//EXTRA
@@ -240,9 +266,31 @@ Lista split(string palabras){
 	return ext;
 }
 
+void Arbol::join(Lista *lista){
+	int size = lista->size();
+	cout<< endl << "EL TAMAÑO ES: " << size;
+	int cont = 0;
+//	Lista *lista = list;
+	Nodo *lLink = lista->cabeza();
+	
+	while(cont<size){
+		Nodo *aLink = this->getNodo(cont,true);
+		
+ 		if(cont%2 == 0){
+			aLink->setHijoIzquierdo(lLink);
+			cout<< "LA CADENA ES:" << aLink->getHijoIzquierdo()->getCadena() << endl;
+		}else{
+			aLink->setHijoDerecho(lLink);
+		}
+		//cout<< "NODO("<<size-cont<<") : "<< lLink->getCadena()<<endl;
+		lLink = lLink->getHijoDerecho();
+		cont++;
+	}
+	cout<<"TERMINE PAPURRI"<<endl;
+}
+
 							//MAIN
 int main(){
-	cout<< "se modifico";
 	
 //	cout << "Testing...\n\n";
 //	int datos = 10;
@@ -255,8 +303,9 @@ int main(){
 	Lista despilar= split(cadena);
 //	Arbol *a = new Arbol(valRaiz);
 	Arbol *a = new Arbol(&despilar);
+	cout << "La señora cadena es" << a->funciona() << endl;
 	cout << "Buscando 2: " << a->search(2,a->getRama()) << endl;
-	cout << "Buscando 8: " << a->search(8,a->getRama())<< endl;
+	cout << "Buscando 4: " << a->search(4,a->getRama())<< endl;
 	cout << "Buscando 3: " << a->search(3,a->getRama())<< endl;
 	//AGREGAR LISTA A ESTE ARCHIVO Y LOS METODOS DE NACHO AL ARBOL.
 }
