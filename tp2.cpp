@@ -30,7 +30,7 @@ class Lista{
             //~Lista(void);
             void add(string d);
             bool esvacia(void);
-            string cabeza(void);
+            Nodo cabeza(void);
             Lista *resto(void);
             string toPrint(string p);   
 //            int suma(int i);
@@ -73,7 +73,7 @@ string Lista::cabeza(void)
                 cout<<" Error, Cabeza de lista vacia";
                 return "-1"; 
   }
-  return czo->get_dato();
+  return czo;
 }
 
 Lista *Lista::resto(void)
