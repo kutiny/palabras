@@ -156,7 +156,7 @@ class Arbol{
 	//void cargar();
 	//void buscar();
 	Nodo * getRama(){return this->rama;};
-	Nodo * search(int v, Nodo * raiz);
+	string search(int v, Nodo * raiz);
 };
 
 Arbol::Arbol(Lista *list){
@@ -180,26 +180,26 @@ void Arbol::setHijoIzquierdo(Nodo * n){
 	this->rama->setHijoIzquierdo(n);
 }
 
-Nodo * Arbol::search(int v, Nodo * raiz){
+string Arbol::search(int v, Nodo * raiz){
 	cout << "Valor de Raiz actual: " << raiz->getValor() << endl;
 	if(v < raiz->getValor()){ //si es menor trabaja por la izquierda
 		if (raiz->getValor() == 1 && v == 1){ // si el nodo tiene el valor 1
 			// significa que el siguiente nivel son los nodos de la lista.
 			cout << "llegando a la lista.\n\n";
-			return raiz->getHijoDerecho(); 
+			return raiz->getHijoDerecho()->getCadena(); 
 		}else if(raiz->getValor() == 1 && v == 0){
 			cout << "llegando a la lista.\n\n";
-			return raiz->getHijoIzquierdo();
+			return raiz->getHijoIzquierdo()->getCadena();
 		}
 		cout << v << " es menor que " << raiz->getValor() << endl;
 		this->search(v,raiz->getHijoIzquierdo());
 	}else{ // si es mayor o igual
 		if (raiz->getValor() == 1 && v == 1){
 			cout << "llegando a la lista.\n\n";
-			return raiz->getHijoDerecho();
+			return raiz->getHijoDerecho()->getCadena();
 		}else if(raiz->getValor() == 1 && v == 0){
 			cout << "llegando a la lista.\n\n";
-			return raiz->getHijoIzquierdo();
+			return raiz->getHijoIzquierdo()->getCadena();
 		}else{
 			cout << v << " es mayor o igual que " << raiz->getValor() << endl; 
 			this->search(v-raiz->getValor(),raiz->getHijoDerecho());
