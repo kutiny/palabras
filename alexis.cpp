@@ -188,24 +188,20 @@ void Arbol::setHijoIzquierdo(Nodo * n){
 }
 
 string Arbol::search(int v, Nodo * raiz){
-	cout << "Valor de Raiz actual: " << raiz->getValue() << endl;
+	//cout << "Valor de Raiz actual: " << raiz->getValue() << endl;
 	if(v < raiz->getValue()){ //si es menor trabaja por la izquierda
 		if (raiz->getValue() == 1 && v == 1){ // si el nodo tiene el valor 1
 			// significa que el siguiente nivel son los nodos de la lista.
-			cout << "llegando a la lista.\n\n";
-			return raiz->getHijoDerecho()->getCadena(); 
+			return raiz->getHijoDerecho()->getCadena();
 		}else if(raiz->getValue() == 1 && v == 0){
-			cout << "llegando a la lista.\n\n";
 			return raiz->getHijoIzquierdo()->getCadena();
 		}
 		cout << v << " es menor que " << raiz->getValue() << endl;
 		this->search(v,raiz->getHijoIzquierdo());
 	}else{ // si es mayor o igual
 		if (raiz->getValue() == 1 && v == 1){
-			cout << "llegando a la lista.\n\n";
 			return raiz->getHijoDerecho()->getCadena();
 		}else if(raiz->getValue() == 1 && v == 0){
-			cout << "llegando a la lista.\n\n";
 			return raiz->getHijoIzquierdo()->getCadena();
 		}else{
 			cout << v << " es mayor o igual que " << raiz->getValue() << endl; 

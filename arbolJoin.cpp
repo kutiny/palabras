@@ -169,7 +169,7 @@ void arbol::join(Lista list){
 	int cont = 0;
 	Lista lista = list;
 	while(cont<size){
-		Nodo aLink = this->getNodo(cont,true);
+		Nodo aLink = this->get(cont);
 		Nodo lLink = Lista->cabeza();
  		if(cont%2 == 0){
 			aLink->setHijoIzquierda(lLink);
