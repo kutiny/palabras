@@ -151,7 +151,8 @@ string leerArchivo(){
 	}else{
 		while(!entrada.eof()){
 			getline(entrada,aux);
-			content.append(" ");
+			if(content)
+				content.append(" ");
 			content.append(aux);
 		}
 		for(unsigned int i=0; i<content.length(); i++){
