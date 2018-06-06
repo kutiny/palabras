@@ -196,16 +196,16 @@ string Arbol::search(int v, Nodo * raiz){
 		}else if(raiz->getValue() == 1 && v == 0){
 			return raiz->getHijoIzquierdo()->getCadena();
 		}
-		cout << v << " es menor que " << raiz->getValue() << endl;
-		this->search(v,raiz->getHijoIzquierdo());
+		//cout << v << " es menor que " << raiz->getValue() << endl;
+		return this->search(v,raiz->getHijoIzquierdo());
 	}else{ // si es mayor o igual
 		if (raiz->getValue() == 1 && v == 1){
 			return raiz->getHijoDerecho()->getCadena();
 		}else if(raiz->getValue() == 1 && v == 0){
 			return raiz->getHijoIzquierdo()->getCadena();
 		}else{
-			cout << v << " es mayor o igual que " << raiz->getValue() << endl; 
-			this->search(v-raiz->getValue(),raiz->getHijoDerecho());
+			//cout << v << " es mayor o igual que " << raiz->getValue() << endl; 
+			return this->search(v-raiz->getValue(),raiz->getHijoDerecho());
 		}
 	}
 	return "Cadena Vacia";
