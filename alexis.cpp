@@ -4,7 +4,6 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include <sstream>
 using namespace std;
 
 class Nodo{
