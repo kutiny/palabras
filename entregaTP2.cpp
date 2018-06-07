@@ -115,14 +115,14 @@ Lista *Lista::resto(void)
 
 string Lista::toPrint(string p)
 { 
-     if (this->esvacia()) {
-     	cout<< "Vacia";
-     } else {
-	   std::ostringstream stm;
-       stm<< this->cabeza()->getCadena() << " - " << this->resto()->toPrint(p) << endl;
-       //cout<<endl<<" stm.str()= "<<stm.str()<<endl;
-       return stm.str();
-     }
+	 if (this->esvacia()) {
+		return "Vacia";
+	 } else {
+	 std::ostringstream stm;
+		 stm<< this->cabeza()->getCadena() << " - " << this->resto()->toPrint(p) << endl;
+		 //cout<<endl<<" stm.str()= "<<stm.str()<<endl;
+		 return stm.str();
+	 }
 }
 
 void Lista::borrar(void)
