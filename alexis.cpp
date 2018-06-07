@@ -275,26 +275,16 @@ void Arbol::join(Lista *lista){
 		
  		if(cont%2 == 0){
 			aLink->setHijoIzquierdo(lLink);
-			//cout<< "LA CADENA ES:" << aLink->getHijoIzquierdo()->getCadena() << endl;
 		}else{
 			aLink->setHijoDerecho(lLink);
 		}
-		//cout<< "NODO("<<size-cont<<") : "<< lLink->getCadena()<<endl;
 		lLink = lLink->getHijoDerecho();
 		cont++;
 	}
-	//cout<<"TERMINE PAPURRI"<<endl;
 }
 
 							//MAIN
 int main(){
-	
-//	cout << "Testing...\n\n";
-//	int datos = 10;
-//	cout << "Datos: " << datos << endl;
-//	int pot2 = log2(datos);
-//	int valRaiz = pow(2,pot2);
-//	cout << "potencia base 2: " << pot2 << endl << "valRaiz: " << valRaiz << "\n\n";
 	string cadena = leerArchivo();
 	//cout<< a << endl;
 	Lista despilar= split(cadena);
@@ -306,6 +296,9 @@ int main(){
 	cout << "Buscando 4: " << a->search(4,a->getRama())<< endl;
 	cout << "Buscando 3: " << a->search(3,a->getRama())<< endl;
 	*/
+	
+	for(int i = 0 ; i < despilar.size() ; i++)
+		cout << a->search(i,a->getRama());
 	
 	//AGREGAR LISTA A ESTE ARCHIVO Y LOS METODOS DE NACHO AL ARBOL.
 	
