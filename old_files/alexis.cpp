@@ -21,7 +21,7 @@ class Nodo{
 		}
 		Nodo(int x){
 			if(x >= 1){
-				cout << "seteando valor: " << x << endl;
+				//cout << "seteando valor: " << x << endl;
 				this->valor = x;
 				if (x > 1){
 					this->setHijoIzquierdo(new Nodo(x/2));
@@ -283,10 +283,9 @@ void Arbol::join(Lista *lista){
 	int cont = 0;
 //	Lista *lista = list;
 	Nodo *lLink = lista->cabeza();
-	
+	Nodo *aLink;
 	while(cont<size){
-		Nodo *aLink = this->getNodo(cont,true);
-		
+		aLink = this->getNodo(cont,true);
  		if(cont%2 == 0){
 			aLink->setHijoIzquierdo(lLink);
 		}else{
@@ -403,33 +402,27 @@ void Arbol::swap(int a, int b){
 int main(){
 	string cadena = leerArchivo("file.txt");
 	//cout<< a << endl;
-	ofstream z("tranajo.txt");
-	z << cadena;
-	z.close();
+	//ofstream z("tranajo.txt");
+	//z << cadena;
+	//z.close();
 	//string cadenita = leerArchivo("tranajo.txt");
 	Lista despilar= split(cadena);
-//	Arbol *a = new Arbol(valRaiz);
-	Arbol *a = new Arbol(&despilar);
+	Lista p = *new Lista();
+	p.add("hola"); p.add("sapeee"); p.add("recheto"); p.add("o"); p.add("no"); p.add("papi"); p.add("chula");
+	//p.add("sapee"); p.add("maka"); p.add("gauna"); p.add("alexiss"); p.add("nachin"); p.add("juanchula"); p.add("jajaja");
+	Arbol *a = new Arbol(&p);
 	
-	for(int i = 0 ; i < despilar.size() ; i++)
-	cout << a->search(i,a->getRama()) << " ";
+	for(int i = 0 ; i < p.size() ; i++)
+		cout << a->search(i,a->getRama()) << " ";
 	//cout<< a->dameElNodo(i)->getCadena() << " ";
 	cout << endl;
-	a->QuickSort();
-	//a->ShellSort();
+	//a->QuickSort();
+	a->ShellSort();
 	//a->funciona();
-	/*
-	cout << "La señora cadena es" << a->funciona() << endl;
-	cout << "Buscando 2: " << a->search(2,a->getRama()) << endl;
-	cout << "Buscando 4: " << a->search(4,a->getRama())<< endl;
-	cout << "Buscando 3: " << a->search(3,a->getRama())<< endl;
-	*/
-	
-	for(int i = 0 ; i < despilar.size() ; i++)
-		cout << a->search(i,a->getRama()) << " ";
+	cout << endl << "________________________" << endl;
+	p.impre();
+	//for(int i = 0 ; i < despilar.size() ; i++)
+	//	cout << a->search(i,a->getRama()) << " ";
 		//cout<< a->dameElNodo(i)->getCadena() << " ";
-	
-	//AGREGAR LISTA A ESTE ARCHIVO Y LOS METODOS DE NACHO AL ARBOL.
-	
 	
 }
