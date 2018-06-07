@@ -50,6 +50,9 @@ class Nodo{
 		string getCadena(){
 			return this->cadena;
 		}
+		void setCadena(string cad){
+			this->cadena=cad;
+		}
 		int getValue(){
 			return this->valor;
 		}
@@ -149,6 +152,8 @@ class Arbol{
 	Lista *lista;
 	Nodo *getNodo(int ind, bool returnUno);
 	void join(Lista *list);
+	void swap(int a, int b);
+	void quicksort(int left, int right);
 	
 	public:
 	Arbol(Lista *list);
@@ -159,6 +164,8 @@ class Arbol{
 	Nodo * getRama(){return this->rama;};
 	string search(int v, Nodo * raiz);
 	string funciona();
+	void QuickSort(){quicksort(0,lista->size());};
+	;
 };
 
 string Arbol::funciona()
@@ -283,6 +290,46 @@ void Arbol::join(Lista *lista){
 	}
 }
 
+void Arbol::quicksort(int left, int right){
+		int m=0,c=0;
+		int min = (left+right)/2;
+	
+    int i = left;
+    int j = right;
+    int pivot = this->getNodo(min)->getValue();
+
+    while(left<j || i<right)
+    {
+    		c++;
+        while(this->getNodo(i)->getValue()<pivot)
+        i++;c++;
+        while(this->getNodo(j)->getValue()>pivot)
+        j--;c++;
+
+        if(i<=j){
+        		c++;
+        		m++;
+            this->swap(i,j);
+            i++;
+            j--;
+        }
+        else{
+            if(left<j)
+            		c++;
+                this->quicksort(left, j);
+            if(i<right)
+            		c++;
+                this->quicksort(i,right);
+            return;
+        }
+    }
+}
+
+void Arbol::swap(int a, int b){
+	string temp =	this->getNodo(a)->getCadena();
+	this->getNodo(a)->setCadena( this->getNodo(b)->getCadena() );
+	this->getNodo(b)->setCadena( temp );	
+}
 							//MAIN
 int main(){
 	string cadena = leerArchivo();
