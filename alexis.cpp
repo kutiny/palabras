@@ -242,7 +242,7 @@ Nodo *Arbol::getNodo(int ind, bool returnUno=false){
 	}else{
 		while(!entrada.eof()){
 			getline(entrada,aux);
-			if(content == "")
+			if(content != "")
 				content.append(" ");
 			content.append(aux);
 		}
