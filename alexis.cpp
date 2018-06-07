@@ -232,7 +232,7 @@ Nodo *Arbol::getNodo(int ind, bool returnUno=false){
 								//EXTRA
 	string leerArchivo(){
 	string file = "file.txt";
-	string content;
+	string content = "";
 	string aux;
 	ifstream entrada;
 	entrada.open(file.c_str());
@@ -242,7 +242,8 @@ Nodo *Arbol::getNodo(int ind, bool returnUno=false){
 	}else{
 		while(!entrada.eof()){
 			getline(entrada,aux);
-			content.append(" ");
+			if(content == "")
+				content.append(" ");
 			content.append(aux);
 		}
 		for(unsigned int i=0; i<content.length(); i++){
@@ -264,7 +265,7 @@ Lista split(string palabras){
 
 void Arbol::join(Lista *lista){
 	int size = lista->size();
-	cout<< endl << "EL TAMAÑO ES: " << size;
+	cout<< endl << "EL TAMAÑO ES: " << size << endl;
 	int cont = 0;
 //	Lista *lista = list;
 	Nodo *lLink = lista->cabeza();
