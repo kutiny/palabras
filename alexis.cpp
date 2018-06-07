@@ -154,6 +154,7 @@ class Arbol{
 	void join(Lista *list);
 	void swap(int a, int b);
 	void quicksort(int left, int right);
+	void shellSort(int n);
 	
 	public:
 	Arbol(Lista *list);
@@ -164,6 +165,7 @@ class Arbol{
 	Nodo * getRama(){return this->rama;};
 	string search(int v, Nodo * raiz);
 	void QuickSort(){quicksort(0,lista->size());};
+	void ShellSort(){shellSort(lista->size());};
 	void funciona();
 	;
 };
@@ -329,11 +331,52 @@ void Arbol::quicksort(int left, int right){
     }
 }
 
+void Arbol::shellSort(int n){
+	int m=0,c=0;
+    int gap, i, j;
+    string temp;
+    for (gap = n/2; gap > 0; gap /= 2){
+
+        for (i = gap; i < n; i++){
+
+            for (j=i-gap; j>=0 && search(j,rama)>search(j+gap,rama); j-=gap) {
+
+                temp = search(j,rama);
+
+                getNodo(j)->setCadena(search(j+gap,rama));
+
+                getNodo(j+gap)->setCadena(temp);
+
+            }
+        }
+    }
+
+}
+//  for (int gap = n/2; gap > 0; gap /= 2){
+//  	c++;
+//
+//    for (int i = gap; i < n; i += 1){
+//
+//      string temp = this->search(i,rama);
+// 			c++;
+// 			m++;
+//      int j;            
+//      for (j = i; j >= gap && this->search(j - gap, rama) > temp; j -= gap)
+//        this->getNodo(j)->setCadena(search(j - gap,rama)) ; m++; c++;
+//             
+//        this->getNodo(j)->setCadena(temp); m++;
+//    }
+//  }
+//  printf("\n ShellSort --> cantidad de comparaciones= %d  movimientos= %d",c,m);
+//    
+//}
+//
 void Arbol::swap(int a, int b){
 	string temp =	this->getNodo(a)->getCadena();
 	this->getNodo(a)->setCadena( this->getNodo(b)->getCadena() );
 	this->getNodo(b)->setCadena( temp );	
 }
+
 							//MAIN
 int main(){
 	string cadena = leerArchivo();
@@ -341,7 +384,8 @@ int main(){
 	Lista despilar= split(cadena);
 //	Arbol *a = new Arbol(valRaiz);
 	Arbol *a = new Arbol(&despilar);
-	a->QuickSort();
+	//a->QuickSort();
+	a->ShellSort();
 	//a->funciona();
 	/*
 	cout << "La señora cadena es" << a->funciona() << endl;
