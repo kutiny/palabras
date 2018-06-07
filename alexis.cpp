@@ -163,15 +163,19 @@ class Arbol{
 	//void buscar();
 	Nodo * getRama(){return this->rama;};
 	string search(int v, Nodo * raiz);
-	string funciona();
 	void QuickSort(){quicksort(0,lista->size());};
+	void funciona();
 	;
 };
 
-string Arbol::funciona()
-{
-	return rama->getHijoIzquierdo()->getHijoIzquierdo()->getHijoDerecho()->getCadena();
+void Arbol::funciona(){
+	for(int i= lista->size()-1 ; i>0 ; i--){
+		cout<< this->search(i, this->rama) << endl;
+	//	cout<< this->rama->getHijoDerecho()->getHijoDerecho()->getHijoIzquierdo()->getCadena();
+	}
+	//	return rama->getHijoIzquierdo()->getHijoIzquierdo()->getHijoDerecho()->getCadena();
 }
+
 Arbol::Arbol(Lista *list){
 	lista=list;
 	int a= list->size();
@@ -223,7 +227,7 @@ Nodo *Arbol::getNodo(int ind, bool returnUno=false){
 	int aux = s->getValue();
 	int par = returnUno?1:0;
 	while(s->getValue() > par && s != NULL){
-		if(s->getValue() < ind){
+		if(s->getValue() <= ind){
 			ind-=aux;
 			aux/=2;
 			s = s->getHijoDerecho();	
@@ -347,6 +351,8 @@ int main(){
 	Lista despilar= split(cadena);
 //	Arbol *a = new Arbol(valRaiz);
 	Arbol *a = new Arbol(&despilar);
+	//a->QuickSort();
+	a->funciona();
 	/*
 	cout << "La señora cadena es" << a->funciona() << endl;
 	cout << "Buscando 2: " << a->search(2,a->getRama()) << endl;
