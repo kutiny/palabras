@@ -171,7 +171,6 @@ class Arbol{
 			cout << "***\tOrdenamiento QuickSort\t***\n\tComparaciones: " << comp << "\n\tMovimientos: " << mov << endl;
 		};
 	void ShellSort(){shellSort(lista->size());};
-	void funciona();
 	Nodo* dameElNodo(int a){ return this->getNodo(a, false);	};
 	void guardarArchivo(string file){
 			ofstream salida(file);
@@ -181,14 +180,6 @@ class Arbol{
 			}
 		}
 };
-
-void Arbol::funciona(){
-	for(int i= lista->size()-1 ; i>0 ; i--){
-		cout<< this->search(i, this->rama) << endl;
-	//	cout<< this->rama->getHijoDerecho()->getHijoDerecho()->getHijoIzquierdo()->getCadena();
-	}
-	//	return rama->getHijoIzquierdo()->getHijoIzquierdo()->getHijoDerecho()->getCadena();
-}
 
 Arbol::Arbol(Lista *list){
 	lista=list;
@@ -213,7 +204,6 @@ void Arbol::setHijoIzquierdo(Nodo * n){
 }
 
 string Arbol::search(int v, Nodo * raiz){
-	//cout << "Valor de Raiz actual: " << raiz->getValue() << endl;
 	if(v < raiz->getValue()){ //si es menor trabaja por la izquierda
 		if (raiz->getValue() == 1 && v == 1){ // si el nodo tiene el valor 1
 			// significa que el siguiente nivel son los nodos de la lista.
@@ -221,7 +211,6 @@ string Arbol::search(int v, Nodo * raiz){
 		}else if(raiz->getValue() == 1 && v == 0){
 			return raiz->getHijoIzquierdo()->getCadena();
 		}
-		//cout << v << " es menor que " << raiz->getValue() << endl;
 		return this->search(v,raiz->getHijoIzquierdo());
 	}else{ // si es mayor o igual
 		if (raiz->getValue() == 1 && v == 1){
@@ -229,7 +218,6 @@ string Arbol::search(int v, Nodo * raiz){
 		}else if(raiz->getValue() == 1 && v == 0){
 			return raiz->getHijoIzquierdo()->getCadena();
 		}else{
-			//cout << v << " es mayor o igual que " << raiz->getValue() << endl; 
 			return this->search(v-raiz->getValue(),raiz->getHijoDerecho());
 		}
 	}
@@ -254,29 +242,6 @@ Nodo *Arbol::getNodo(int ind, bool returnUno=false){
 	return s;
 }
 
-								//EXTRA
-	string leerArchivo(string a){
-	string file = a;
-	string content = "";
-	string aux;
-	ifstream entrada;
-	entrada.open(file.c_str());
-	if(entrada.fail()){
-		cout<<"***Error al abrir archivo***\n\n";
-		return 0;
-	}else{
-		while(!entrada.eof()){
-			getline(entrada,aux);
-			if(content != "")
-				content.append(" ");
-			content.append(aux);
-		}
-		for(unsigned int i=0; i<content.length(); i++){
-			content[i] = tolower(content[i]);
-		}
-	}
-	return content;
-}
 Lista split(string palabras){
 	istringstream ss(palabras);
 	Lista ext = *new Lista();
@@ -290,11 +255,8 @@ Lista split(string palabras){
 
 void Arbol::join(Lista *lista){
 	int size = lista->size();
-	//cout<< endl << "EL TAMAÑO ES: " << size << endl;
 	int cont = 0;
-//	Lista *lista = list;
 	Nodo *lLink = lista->cabeza();
-	
 	while(cont<size){
 		Nodo *aLink = this->getNodo(cont,true);
 		
@@ -331,40 +293,7 @@ void Arbol::quicksort(int primero, int ultimo,int&c, int&m){
 				quicksort(primero,i-1,c,m);
 				quicksort(i+1,ultimo,c,m);
       }
-  }
-//		int m=0,c=0;
-//		int min = (left+right)/2;
-//	
-//    int i = left;
-//    int j = right;
-//    int pivot = this->getNodo(min)->getValue();
-//
-//    while(left<j || i<right)
-//    {
-//    		c++;
-//        while(this->getNodo(i)->getValue()<pivot)
-//        i++;c++;
-//        while(this->getNodo(j)->getValue()>pivot)
-//        j--;c++;
-//
-//        if(i<=j){
-//        		c++;
-//        		m++;
-//            this->swap(i,j);
-//            i++;
-//            j--;
-//        }
-//        else{
-//            if(left<j)
-//            		c++;
-//                this->quicksort(left, j);
-//            if(i<right)
-//            		c++;
-//                this->quicksort(i,right);
-//            return;
-//        }
-//    }
-//}
+}
 
 void Arbol::shellSort(int n){
 	int m=0,c=0;
@@ -375,39 +304,16 @@ void Arbol::shellSort(int n){
 		for (i = gap; i < n; i++){
 			c++; m++;
 			for (j=i-gap; j>=0 && search(j,rama)>search(j+gap,rama); j-=gap) {
-
-					temp = search(j,rama); 
-
-					getNodo(j)->setCadena(search(j+gap,rama));
-
-					getNodo(j+gap)->setCadena(temp);
-					
-					m++;
-
+				temp = search(j,rama); 
+				getNodo(j)->setCadena(search(j+gap,rama));
+				getNodo(j+gap)->setCadena(temp);
+				m++;
 			}
 		}
 	}
 	cout << "\n***\tOrdenamiento ShellSort\t***\n\tComparaciones: " << c << "\n\tMovimientos: " << m << "\n"; 
 }
-//  for (int gap = n/2; gap > 0; gap /= 2){
-//  	c++;
-//
-//    for (int i = gap; i < n; i += 1){
-//
-//      string temp = this->search(i,rama);
-// 			c++;
-// 			m++;
-//      int j;            
-//      for (j = i; j >= gap && this->search(j - gap, rama) > temp; j -= gap)
-//        this->getNodo(j)->setCadena(search(j - gap,rama)) ; m++; c++;
-//             
-//        this->getNodo(j)->setCadena(temp); m++;
-//    }
-//  }
-//  printf("\n ShellSort --> cantidad de comparaciones= %d  movimientos= %d",c,m);
-//    
-//}
-//
+
 void Arbol::swap(int a, int b){
 	string temp =	this->getNodo(a)->getCadena();
 	this->getNodo(a)->setCadena( this->getNodo(b)->getCadena() );
