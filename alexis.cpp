@@ -157,11 +157,10 @@ class Arbol{
 	void shellSort(int n);
 	
 	public:
+	Arbol();
 	Arbol(Lista *list);
 	void setHijoIzquierdo(Nodo *n);
 	void setHijoDerecho(Nodo *n);
-	//void cargar();
-	//void buscar();
 	Nodo * getRama(){return this->rama;};
 	string search(int v, Nodo * raiz);
 	void QuickSort(){quicksort(0,lista->size());};
@@ -169,7 +168,9 @@ class Arbol{
 	void funciona();
 	;
 };
-
+Arbol::Arbol(){
+	this->rama = NULL;
+}
 void Arbol::funciona(){
 	for(int i= lista->size()-1 ; i>0 ; i--){
 		cout<< this->search(i, this->rama) << endl;
