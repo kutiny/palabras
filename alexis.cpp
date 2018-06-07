@@ -153,7 +153,7 @@ class Arbol{
 	Nodo *getNodo(int ind, bool returnUno);
 	void join(Lista *list);
 	void swap(int a, int b);
-	void quicksort(int left, int right);
+	void quicksort(int primero, int ultimo);
 	void shellSort(int n);
 	
 	public:
@@ -163,10 +163,10 @@ class Arbol{
 	void setHijoDerecho(Nodo *n);
 	Nodo * getRama(){return this->rama;};
 	string search(int v, Nodo * raiz);
-	void QuickSort(){quicksort(0,lista->size());};
+	void QuickSort(){quicksort(0,lista->size()-1);};
 	void ShellSort(){shellSort(lista->size());};
 	void funciona();
-	;
+	Nodo* dameElNodo(int a){ return this->getNodo(a, false);	};
 };
 Arbol::Arbol(){
 	this->rama = NULL;
@@ -244,8 +244,8 @@ Nodo *Arbol::getNodo(int ind, bool returnUno=false){
 }
 
 								//EXTRA
-	string leerArchivo(){
-	string file = "file.txt";
+	string leerArchivo(string a){
+	string file = a;
 	string content = "";
 	string aux;
 	ifstream entrada;
@@ -297,40 +297,61 @@ void Arbol::join(Lista *lista){
 	}
 }
 
-void Arbol::quicksort(int left, int right){
-		int m=0,c=0;
-		int min = (left+right)/2;
-	
-    int i = left;
-    int j = right;
-    int pivot = this->getNodo(min)->getValue();
-
-    while(left<j || i<right)
-    {
-    		c++;
-        while(this->getNodo(i)->getValue()<pivot)
-        i++;c++;
-        while(this->getNodo(j)->getValue()>pivot)
-        j--;c++;
-
-        if(i<=j){
-        		c++;
-        		m++;
-            this->swap(i,j);
-            i++;
-            j--;
-        }
-        else{
-            if(left<j)
-            		c++;
-                this->quicksort(left, j);
-            if(i<right)
-            		c++;
-                this->quicksort(i,right);
-            return;
-        }
-    }
-}
+void Arbol::quicksort(int primero, int ultimo){
+	int i,j,k;
+	string pivot, aux;
+      if(ultimo>primero){
+             pivot=this->search(ultimo,rama);
+             i=primero-1; j=ultimo;      
+             for(;;){
+                    while(this->search(++i,rama)<pivot && (i<ultimo));
+                    while(this->search(--j,rama)>pivot && (j>primero));
+                    if(i>=j)break;
+                    aux=this->search(i,rama);
+					this->dameElNodo(i)->setCadena(this->search(j,rama));
+					this->dameElNodo(j)->setCadena(aux);
+					aux.clear();      
+            }// fin for
+            aux=this->search(i,rama);
+			this->dameElNodo(i)->setCadena(this->search(ultimo, rama));
+			this->dameElNodo(ultimo)->setCadena(aux);
+            quicksort(primero,i-1);
+            quicksort(i+1,ultimo);
+      }
+  }
+//		int m=0,c=0;
+//		int min = (left+right)/2;
+//	
+//    int i = left;
+//    int j = right;
+//    int pivot = this->getNodo(min)->getValue();
+//
+//    while(left<j || i<right)
+//    {
+//    		c++;
+//        while(this->getNodo(i)->getValue()<pivot)
+//        i++;c++;
+//        while(this->getNodo(j)->getValue()>pivot)
+//        j--;c++;
+//
+//        if(i<=j){
+//        		c++;
+//        		m++;
+//            this->swap(i,j);
+//            i++;
+//            j--;
+//        }
+//        else{
+//            if(left<j)
+//            		c++;
+//                this->quicksort(left, j);
+//            if(i<right)
+//            		c++;
+//                this->quicksort(i,right);
+//            return;
+//        }
+//    }
+//}
 
 void Arbol::shellSort(int n){
 	int m=0,c=0;
@@ -380,13 +401,22 @@ void Arbol::swap(int a, int b){
 
 							//MAIN
 int main(){
-	string cadena = leerArchivo();
+	string cadena = leerArchivo("file.txt");
 	//cout<< a << endl;
+	ofstream z("tranajo.txt");
+	z << cadena;
+	z.close();
+	//string cadenita = leerArchivo("tranajo.txt");
 	Lista despilar= split(cadena);
 //	Arbol *a = new Arbol(valRaiz);
 	Arbol *a = new Arbol(&despilar);
-	//a->QuickSort();
-	a->ShellSort();
+	
+	for(int i = 0 ; i < despilar.size() ; i++)
+	cout << a->search(i,a->getRama()) << " ";
+	//cout<< a->dameElNodo(i)->getCadena() << " ";
+	cout << endl;
+	a->QuickSort();
+	//a->ShellSort();
 	//a->funciona();
 	/*
 	cout << "La señora cadena es" << a->funciona() << endl;
@@ -396,7 +426,8 @@ int main(){
 	*/
 	
 	for(int i = 0 ; i < despilar.size() ; i++)
-		cout << a->search(i,a->getRama());
+		cout << a->search(i,a->getRama()) << " ";
+		//cout<< a->dameElNodo(i)->getCadena() << " ";
 	
 	//AGREGAR LISTA A ESTE ARCHIVO Y LOS METODOS DE NACHO AL ARBOL.
 	
