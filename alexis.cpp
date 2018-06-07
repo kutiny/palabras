@@ -265,7 +265,7 @@ Lista split(string palabras){
 
 void Arbol::join(Lista *lista){
 	int size = lista->size();
-	cout<< endl << "EL TAMAÑO ES: " << size << endl;
+	//cout<< endl << "EL TAMAÑO ES: " << size << endl;
 	int cont = 0;
 //	Lista *lista = list;
 	Nodo *lLink = lista->cabeza();
@@ -275,7 +275,7 @@ void Arbol::join(Lista *lista){
 		
  		if(cont%2 == 0){
 			aLink->setHijoIzquierdo(lLink);
-			cout<< "LA CADENA ES:" << aLink->getHijoIzquierdo()->getCadena() << endl;
+			//cout<< "LA CADENA ES:" << aLink->getHijoIzquierdo()->getCadena() << endl;
 		}else{
 			aLink->setHijoDerecho(lLink);
 		}
@@ -283,7 +283,7 @@ void Arbol::join(Lista *lista){
 		lLink = lLink->getHijoDerecho();
 		cont++;
 	}
-	cout<<"TERMINE PAPURRI"<<endl;
+	//cout<<"TERMINE PAPURRI"<<endl;
 }
 
 							//MAIN
@@ -300,9 +300,14 @@ int main(){
 	Lista despilar= split(cadena);
 //	Arbol *a = new Arbol(valRaiz);
 	Arbol *a = new Arbol(&despilar);
+	/*
 	cout << "La señora cadena es" << a->funciona() << endl;
 	cout << "Buscando 2: " << a->search(2,a->getRama()) << endl;
 	cout << "Buscando 4: " << a->search(4,a->getRama())<< endl;
 	cout << "Buscando 3: " << a->search(3,a->getRama())<< endl;
+	*/
+	
 	//AGREGAR LISTA A ESTE ARCHIVO Y LOS METODOS DE NACHO AL ARBOL.
+	
+	
 }
