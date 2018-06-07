@@ -341,8 +341,8 @@ int main(){
 	Lista despilar= split(cadena);
 //	Arbol *a = new Arbol(valRaiz);
 	Arbol *a = new Arbol(&despilar);
-	//a->QuickSort();
-	a->funciona();
+	a->QuickSort();
+	//a->funciona();
 	/*
 	cout << "La señora cadena es" << a->funciona() << endl;
 	cout << "Buscando 2: " << a->search(2,a->getRama()) << endl;
