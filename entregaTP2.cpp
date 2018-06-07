@@ -174,10 +174,11 @@ class Arbol{
 	Nodo* dameElNodo(int a){ return this->getNodo(a, false);	};
 	void guardarArchivo(string file){
 			ofstream salida(file);
-			for (int i = lista->size() -1 ; i > 0 ; i--){
+			for(int i = lista->size() - 1 ; i > 0 ; i--){
 				salida << this->search(i,rama);
 				salida << "\n";
 			}
+			salida.close();
 		}
 };
 
@@ -355,7 +356,7 @@ int main(){
 	file_name = "shell.txt";
 	cout << "\n$> guardando archivo como '" << file_name << "'\n";
 	shelly->guardarArchivo(file_name);
-	
+	free(shelly);
 	cout << "\n\n";
 	
 	//CREAMOS EL ARBOL PARA APLICAR QUICKSORT
@@ -366,7 +367,7 @@ int main(){
 	file_name = "quick.txt";
 	cout << "\n$> guardando archivo como '" << file_name << "'\n";
 	quicky->guardarArchivo(file_name);
-	
+	free(quicky);
 	cout << "\n\n";
 	
 	//CREAMOS EL ARBOL AVL
