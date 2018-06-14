@@ -2,6 +2,9 @@
 él
 él
 él
+zapata
+zapata
+zapata
 ya
 ya
 ya
@@ -31,14 +34,11 @@ y
 y
 y
 y
-y
-y
-y
-y
-y
-y
-y
-y
+caballero
+caballero
+caballero
+caballero
+caballero
 y
 y
 y
@@ -51,8 +51,10 @@ y
 vuelve
 vuelve
 volvieron
+caballero
 voces
 voces
+caballero
 vigilándolas
 vieja
 vida
@@ -116,7 +118,6 @@ tarde
 tantisimos
 tamaño
 tales
-sus
 sus
 sus
 sus
@@ -280,6 +281,7 @@ que
 que
 que
 que
+caballero
 que
 que
 que
@@ -648,6 +650,7 @@ en
 en
 en
 en
+caballero
 en
 en
 en
@@ -1046,3 +1049,4 @@ a
 5
 4
 3
+10
